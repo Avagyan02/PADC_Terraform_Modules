@@ -1,1 +1,3 @@
 main/.terraform/
+main/id_rsa
+main/id_rsa.pub
