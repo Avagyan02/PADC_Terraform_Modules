@@ -19,13 +19,13 @@ variable "ec2_name" {
 }
 
 variable "subnet_id" {
-  type = number
+  type = string
 }
 
-variable "sg_inbound_rules" {
-  type = list(number)
-}
+# variable "sg_inbound_rules" {
+#   type = list(number)
+# }
 
-variable "sg_outbound_rules" {
-  type = list(number)
-}
+# variable "sg_outbound_rules" {
+#   type = list(number)
+# }
