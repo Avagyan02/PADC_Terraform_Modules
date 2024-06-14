@@ -22,10 +22,16 @@ variable "subnet_id" {
   type = string
 }
 
-# variable "sg_inbound_rules" {
-#   type = list(number)
-# }
+variable "vpc_id" {
+  type = string
+}
 
-# variable "sg_outbound_rules" {
-#   type = list(number)
-# }
+variable "sg_allowed_ports" {
+  type        = list(number)
+  default     = [22, 80, 443]
+}
+
+variable "sg_allowed_ip_ranges" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
