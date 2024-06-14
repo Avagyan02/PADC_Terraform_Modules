@@ -17,3 +17,4 @@ module "auto_scalling" {
   vpc_id = module.vpc_module.vpc_id
   as_subnet_ids = [module.vpc_module.subnet_id]
 }
+
