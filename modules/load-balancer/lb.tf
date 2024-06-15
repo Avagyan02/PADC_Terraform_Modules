@@ -2,15 +2,15 @@ resource "aws_lb" "main" {
   name               = var.lb_name
   internal           = var.lb_internal
   load_balancer_type = var.lb_type
-  security_groups    = [aws_security_group.lb.id]
+  security_groups    = [aws_security_group.main.id]
   subnets            = var.lb_subnet_ids
 
   enable_deletion_protection = var.lb_enable_deletion_protection
 }
 
-resource "aws_lb_target_group" "this" {
+resource "aws_lb_target_group" "main" {
   name     = var.tg_name
-  port     = 80
+  port     = var.lb_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
 
@@ -24,13 +24,13 @@ resource "aws_lb_target_group" "this" {
   }
 }
 
-resource "aws_lb_listener" "this" {
-  load_balancer_arn = aws_lb.this.arn
-  port              = 80
+resource "aws_lb_listener" "main" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = var.lb_port
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
+    target_group_arn = aws_lb_target_group.main.arn
   }
 }

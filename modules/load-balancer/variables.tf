@@ -1,39 +1,36 @@
 variable "lb_name" {
-  type = string
-  default = "main"
+  description = "Load balancer name"
+  type        = string
+  default     = "main"
 }
 
 variable "lb_internal" {
-  type = bool
-  default = false
+  description = "Load is internal"
+  type        = bool
+  default     = false
 }
 
 variable "lb_type" {
-  type = string
-  default = "application"
+  description = "Load balancer type"
+  type        = string
+  default     = "application"
 }
 
 variable "lb_enable_deletion_protection" {
-  type = bool
-  default = false
+  description = "Is enable load balancer name"
+  type        = bool
+  default     = false
 }
 
 variable "lb_subnet_ids" {
-  type = list(number)
-}
-
-variable "tg_name" {
-  type = string
-  default = "main"
-}
-
-variable "vpc_id" {
-  type = string
+  description = "Attached subnet ids"
+  type        = list(string)
 }
 
 variable "tg_name" {
   description = "The name of the target group"
   type        = string
+  default     = "main"
 }
 
 variable "vpc_id" {
@@ -60,19 +57,37 @@ variable "health_check_timeout" {
 }
 
 variable "healthy_threshold" {
-  description = "The number of consecutive health checks successes required before considering an unhealthy target healthy"
+  description = "The number of health checks successes"
   type        = number
   default     = 5
 }
 
 variable "unhealthy_threshold" {
-  description = "The number of consecutive health check failures required before considering a target unhealthy"
+  description = "The number of health check failures"
   type        = number
   default     = 2
 }
 
 variable "health_check_matcher" {
-  description = "The HTTP codes to use when checking for a healthy response from a target"
+  description = "Codes to use for checking a healthy response"
   type        = string
   default     = "200-299"
+}
+
+variable "lb_port" {
+  description = "Load balancer port"
+  type        = number
+  default     = 80
+}
+
+variable "sg_allowed_ports" {
+  description = "Security group allowed ports"
+  type        = list(number)
+  default     = [22, 80, 443]
+}
+
+variable "sg_allowed_ip_ranges" {
+  description = "Security group allowed ip ranges"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
 }

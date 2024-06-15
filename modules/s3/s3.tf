@@ -1,9 +1,8 @@
-resource "aws_s3_bucket" "this" {
+resource "aws_s3_bucket" "main-2" {
   bucket = var.bucket_name
-  acl    = var.bucket_acl
 
   tags = {
-    Name = var.bucket_name
+    Name      = var.bucket_name
     Terraform = true
   }
 
@@ -11,16 +10,11 @@ resource "aws_s3_bucket" "this" {
     enabled = var.bucket_versioning
   }
 
-#   logging {  
-#     target_bucket = var.logging_target_bucket
-#     target_prefix = var.logging_target_prefix
-#   }
-
-#   server_side_encryption_configuration {
-#     rule {
-#       apply_server_side_encryption_by_default {
-#         sse_algorithm = "AES256"
-#       }
-#     }
-#   }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = var.bucket_encryption_type
+      }
+    }
+  }
 }

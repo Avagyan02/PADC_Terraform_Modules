@@ -8,8 +8,9 @@ resource "aws_launch_template" "main" {
     associate_public_ip_address = var.lt_associate_public_ip_address
     security_groups             = [aws_security_group.main.id]
   }
+}
 
-  lifecycle {
-    create_before_destroy = var.lt_create_before_destroy
-  }
+resource "aws_key_pair" "generated_key_pair" {
+  key_name   = var.lt_key_name
+  public_key = file("${var.lt_key_name}.pub")
 }

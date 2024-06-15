@@ -1,5 +1,5 @@
 resource "aws_security_group" "main" {
-  name   = "lt_sg"
+  name   = "lb_sg"
   vpc_id = var.vpc_id
 
   dynamic "ingress" {

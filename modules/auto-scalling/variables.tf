@@ -1,76 +1,86 @@
 variable "lt_ami" {
-  type = string
-  default = "ami-02c41ffdfd4172736"
+  description = "Launch template AMI id"
+  type        = string
+  default     = "ami-01e444924a2233b07"
 }
 
 variable "lt_key_name" {
-  type = string
-  default = "id_rsa"
+  description = "Launch template key name"
+  type        = string
+  default     = "id_rsa"
 }
 
 variable "lt_instance_type" {
-  type = string
-  default = "t2.micro"
+  description = "Launch template instance type"
+  type        = string
+  default     = "t2.micro"
 }
 
 variable "lt_associate_public_ip_address" {
-  type = bool
-  default = false
+  description = "Launch template associated publiv ip address"
+  type        = bool
+  default     = false
 }
 
 variable "vpc_id" {
-  type = string
+  description = "The ID of the VPC"
+  type        = string
 }
 
 variable "sg_allowed_ports" {
+  description = "Security group allowed ports"
   type        = list(number)
   default     = [22, 80, 443]
 }
 
 variable "sg_allowed_ip_ranges" {
+  description = "Security group allowed ip ranges"
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
 
 variable "lt_create_before_destroy" {
-  type = bool
-  default = false
+  description = "Launch template before to destroy check"
+  type        = bool
+  default     = false
 }
 
 variable "lt_name_prefix" {
-  type = string
-  default = "example-"
+  description = "Launch template name prefix"
+  type        = string
+  default     = "example-"
 }
 
 variable "as_subnet_ids" {
-  type = list(number)
+  description = "Attached subnet ids"
+  type        = list(string)
 }
 
 variable "as_desired_capacity" {
-  type = number
-  default = 2
+  description = "Auto scalling servers capacity"
+  type        = number
+  default     = 2
 }
 
 variable "as_max_size" {
-  type = number
-  default = 3
+  description = "Auto scalling servers max size"
+  type        = number
+  default     = 3
 }
 
 variable "as_min_size" {
-  type = number
-  default = 1
+  description = "Auto scalling servers min size"
+  type        = number
+  default     = 1
 }
 
 variable "as_name" {
-  type = string
-  default = "main"
+  description = "Auto scalling name"
+  type        = string
+  default     = "main"
 }
 
-variable "as_create_before_destroy" {
-  type = bool
-  default = false
+variable "tg_arn" {
+  description = "Attached target group arn"
+  type        = string
 }
-
-# variable "tg_arn" {
-#   type = string
-# }

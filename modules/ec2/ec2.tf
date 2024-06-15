@@ -11,3 +11,8 @@ resource "aws_instance" "main" {
     Terraform = true
   }
 }
+
+# resource "aws_key_pair" "generated_key_pair" {
+#   key_name   = var.ec2_key_name
+#   public_key = file("${var.ec2_key_name}.pub")
+# }
