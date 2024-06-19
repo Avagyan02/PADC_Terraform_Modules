@@ -5,4 +5,9 @@ resource "aws_lambda_function" "main_lambda" {
   handler       = var.lambda_handler_name
   runtime       = var.lambda_runtime
   depends_on    = [aws_iam_role_policy_attachment.lambda_role_policy_attachment]
+
+  vpc_config {
+    subnet_ids = var.lambda_subnet_ids
+    security_group_ids = [aws_security_group.main.id]
+  }
 }

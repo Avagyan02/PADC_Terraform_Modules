@@ -34,3 +34,9 @@ resource "aws_lb_listener" "main" {
     target_group_arn = aws_lb_target_group.main.arn
   }
 }
+
+resource "aws_lb_target_group_attachment" "main" {
+  target_group_arn = aws_lb_target_group.main.arn
+  target_id        = var.attached_ec2
+  port             = var.attached_ec2_port
+}

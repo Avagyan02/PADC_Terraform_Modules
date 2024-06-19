@@ -1,17 +1,39 @@
 variable "bucket_name" {
-  description = "S3 bucket name"
   type        = string
-  default     = "main-bucket-2"
 }
 
 variable "bucket_versioning" {
-  description = "S3 bucket versioning on or off"
   type        = bool
-  default     = false
 }
 
 variable "bucket_encryption_type" {
-  description = "S3 bucket ecnryption type"
   type        = string
-  default     = "AES256"
+}
+
+variable "static_website_index_key" {
+  type = string
+}
+
+variable "static_website_error_key" {
+  type = string
+}
+
+variable "static_website_index_source" {
+  type = string
+}
+
+variable "static_website_error_source" {
+  type = string
+}
+
+variable "static_website_index_acl" {
+  type = string
+}
+
+variable "static_website_error_acl" {
+  type = string
+}
+
+variable "files_to_upload" {
+  type        = list(string)
 }
