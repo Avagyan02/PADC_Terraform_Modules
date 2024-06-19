@@ -34,6 +34,10 @@ variable "static_website_error_acl" {
   type = string
 }
 
+variable "static_website_file_acl" {
+  type = string
+}
+
 variable "files_to_upload" {
   type        = list(string)
 }

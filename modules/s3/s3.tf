@@ -44,5 +44,5 @@ resource "aws_s3_bucket_object" "files" {
   bucket = aws_s3_bucket.main.bucket
   key    = each.value
   source = each.value
-  acl    = "public-read"
+  acl    = var.static_website_file_acl
 }

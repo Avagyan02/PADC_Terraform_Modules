@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "main_lambda" {
-  filename      = "${path.module}/${var.lambda_file_name}"
+  filename      = var.lambda_file_name
   function_name = var.lambda_function_name
   role          = aws_iam_role.lambda_role.arn
   handler       = var.lambda_handler_name

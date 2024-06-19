@@ -85,7 +85,26 @@ module "s3_module" {
   static_website_error_source = var.static_website_error_source
   static_website_index_acl = var.static_website_index_acl
   static_website_error_acl = var.static_website_error_acl
+  static_website_file_acl = var.static_website_file_acl
   static_website_error_key = var.static_website_error_key
   static_website_index_source = var.static_website_index_source
   files_to_upload = var.files_to_upload
+}
+
+module "cloudfront_module" {
+  source = "./modules/cloud-front"
+  s3_bucket_domain = module.s3_module.bucket_regional_domain
+  cf_cookies_forward = var.cf_cookies_forward
+  cf_max_ttl = var.cf_max_ttl
+  cf_cloudfront_default_certificate = var.cf_cloudfront_default_certificate
+  cf_cached_methods = var.cf_cached_methods
+  cf_default_ttl = var.cf_default_ttl
+  cf_restriction_type = var.cf_restriction_type
+  cf_origin = var.cf_origin
+  cf_min_ttl = var.cf_min_ttl
+  cf_allowed_methods = var.cf_allowed_methods
+  cf_enabled = var.cf_enabled
+  cf_viewer_protocol_policy = var.cf_viewer_protocol_policy
+  cf_default_root_object = var.cf_default_root_object
+  cf_query_string = var.cf_query_string
 }

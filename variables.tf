@@ -352,13 +352,19 @@ variable "static_website_error_source" {
 variable "static_website_index_acl" {
   description = "Static website index acl"
   type = string
-  default = "public-read"
+  default = "private"
 }
 
 variable "static_website_error_acl" {
   description = "Static website error acl"
   type = string
-  default = "public-read"
+  default = "private"
+}
+
+variable "static_website_file_acl" {
+  description = "Static website files acl"
+  type = string
+  default = "private"
 }
 
 variable "files_to_upload" {
@@ -377,4 +383,82 @@ variable "lb_attached_ec2_port" {
   description = "Attached ec2 port"
   type = number
   default = 80
+}
+
+variable "cf_origin" {
+  description = "CloudFront origin"
+  type = string
+  default = "my-domain"
+}
+
+variable "cf_enabled" {
+  description = "CloudFront distribution enable"
+  type = bool
+  default = false
+}
+
+variable "cf_default_root_object" {
+  description = "CloudFront root object for default"
+  type = string
+  default = "index.html"
+}
+
+variable "cf_viewer_protocol_policy" {
+  description = "CloudFront protocol policy for viewer"
+  type = string
+  default = "redirect-to-https"
+}
+
+variable "cf_query_string" {
+  description = "CloudFront query string"
+  type = bool
+  default = false
+}
+
+variable "cf_cookies_forward" {
+  description = "CloudFront cookies forward"
+  type = string
+  default = "none"
+}
+
+variable "cf_allowed_methods" {
+  description = "CloudFront allowed methods"
+  type = list(string)
+  default = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+}
+
+variable "cf_cached_methods" {
+  description = "CloudFront cached methods"
+  type = list(string)
+  default = ["GET", "HEAD"]
+}
+
+variable "cf_min_ttl" {
+  description = "CloudFront min ttl settings for caching"
+  type = number
+  default = 0
+}
+
+variable "cf_max_ttl" {
+  description = "CloudFront max ttl setting for caching"
+  type = number
+  default = 86400
+}
+
+variable "cf_default_ttl" {
+  description = "CloudFront default ttl"
+  type = number
+  default = 3600
+}
+
+variable "cf_restriction_type" {
+  description = "CloudFront restriction type"
+  type = string
+  default = "none"
+}
+
+variable "cf_cloudfront_default_certificate" {
+  description = "CloudFront default certificate"
+  type = bool
+  default = true
 }
