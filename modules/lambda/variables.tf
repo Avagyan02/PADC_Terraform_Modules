@@ -1,8 +1,4 @@
-variable "lambda_role_file_path" {
-  type        = string
-}
-
-variable "lambda_role_policy_file_path" {
+variable "lambda_role_policy" {
   type        = string
 }
 
@@ -30,10 +26,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "sg_allowed_ports" {
-  type        = list(number)
-}
-
-variable "sg_allowed_ip_ranges" {
-  type        = list(string)
+variable "sg_ids" {
+  type = list(string)
 }

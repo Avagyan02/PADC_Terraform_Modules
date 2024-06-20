@@ -54,18 +54,14 @@ variable "lb_port" {
   type        = number
 }
 
-variable "sg_allowed_ports" {
-  type        = list(number)
-}
-
-variable "sg_allowed_ip_ranges" {
-  type        = list(string)
-}
-
 variable "attached_ec2" {
   type = string
 }
 
 variable "attached_ec2_port" {
   type = number
+}
+
+variable "sg_ids" {
+  type = list(string)
 }

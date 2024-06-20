@@ -18,14 +18,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "sg_allowed_ports" {
-  type        = list(number)
-}
-
-variable "sg_allowed_ip_ranges" {
-  type        = list(string)
-}
-
 variable "lt_create_before_destroy" {
   type        = bool
 }
@@ -56,4 +48,8 @@ variable "as_name" {
 
 variable "tg_arn" {
   type        = string
+}
+
+variable "sg_ids" {
+  type = list(string)
 }

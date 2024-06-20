@@ -135,26 +135,7 @@ variable "lambda_runtime" {
   default     = "nodejs20.x"
 }
 
-variable "lambda_role_file_path" {
-  description = "Lambda function iam role"
-  type        = string
-  default     = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "Service": "lambda.amazonaws.com"
-          },
-          "Action": "sts:AssumeRole"
-        }
-      ]
-    }
-  EOF
-}
-
-variable "lambda_role_policy_file_path" {
+variable "lambda_role_policy" {
   description = "Lambda function iam role policy"
   type        = string
   default     = <<EOF
@@ -394,7 +375,7 @@ variable "cf_origin" {
 variable "cf_enabled" {
   description = "CloudFront distribution enable"
   type = bool
-  default = false
+  default = true
 }
 
 variable "cf_default_root_object" {

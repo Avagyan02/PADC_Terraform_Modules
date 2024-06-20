@@ -5,3 +5,7 @@ output "website_url" {
 output "bucket_regional_domain" {
   value = aws_s3_bucket.main.bucket_regional_domain_name
 }
+
+output "bucket_website_endpoint" {
+  value = aws_s3_bucket.main.website_endpoint
+}

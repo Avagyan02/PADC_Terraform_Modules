@@ -14,11 +14,10 @@ module "ec2_module" {
   ec2_name             = var.ec2_name
   ec2_key_name         = var.ec2_key_name
   ec2_instance_type    = var.ec2_instance_type
-  sg_allowed_ip_ranges = var.sg_allowed_ip_ranges_for_lb
-  sg_allowed_ports     = var.sg_allowed_ports_for_ec2
   ec2_user_data        = var.ec2_user_data
   ec2_ami              = var.ec2_ami
   ec2_count = var.ec2_count
+  sg_ids = [module.sg_module_for_ec2.sg_id]
 }
 
 module "lambda_module" {
@@ -28,11 +27,9 @@ module "lambda_module" {
   lambda_function_name         = var.lambda_function_name
   lambda_runtime               = var.lambda_runtime
   lambda_handler_name          = var.lambda_handler_name
-  lambda_role_policy_file_path = var.lambda_role_policy_file_path
-  lambda_role_file_path        = var.lambda_role_file_path
-  sg_allowed_ip_ranges = var.allowed_ip_ranges_for_lambda
-  sg_allowed_ports = var.allowed_ports_for_lambda
+  lambda_role_policy = var.lambda_role_policy
   lambda_subnet_ids = module.vpc_module.subnet_id
+  sg_ids = [module.sg_module_for_lambda.sg_id]
 }
 
 module "auto_scalling_module" {
@@ -41,7 +38,6 @@ module "auto_scalling_module" {
   as_subnet_ids                  = module.vpc_module.subnet_id
   tg_arn                         = module.load_balancer_module.tg_arn
   as_name                        = var.as_name
-  sg_allowed_ports               = var.sg_allowed_ports_for_lt
   as_min_size                    = var.as_min_size
   as_max_size                    = var.as_max_size
   lt_name_prefix                 = var.lt_name_prefix
@@ -49,9 +45,9 @@ module "auto_scalling_module" {
   as_desired_capacity            = var.as_desired_capacity
   lt_ami                         = var.lt_ami
   lt_key_name                    = var.lt_key_name
-  sg_allowed_ip_ranges           = var.sg_allowed_ip_ranges_for_lt
   lt_instance_type               = var.lt_instance_type
   lt_associate_public_ip_address = var.lt_associate_public_ip_address
+  sg_ids = [module.sg_module_for_lt.sg_id]
 }
 
 module "load_balancer_module" {
@@ -60,8 +56,6 @@ module "load_balancer_module" {
   lb_subnet_ids                 = module.vpc_module.subnet_id
   lb_port                       = var.lb_port
   health_check_matcher          = var.health_check_matcher
-  sg_allowed_ip_ranges          = var.sg_allowed_ip_ranges_for_lb
-  sg_allowed_ports              = var.sg_allowed_ports_for_lb
   lb_type                       = var.lb_type
   unhealthy_threshold           = var.unhealthy_threshold
   lb_name                       = var.lb_name
@@ -74,6 +68,7 @@ module "load_balancer_module" {
   health_check_interval         = var.health_check_interval
   attached_ec2_port = var.lb_attached_ec2_port
   attached_ec2 = module.ec2_module.ec2_instance_ids[0]
+  sg_ids = [module.sg_module_for_lb.sg_id]
 }
 
 module "s3_module" {
@@ -107,4 +102,36 @@ module "cloudfront_module" {
   cf_viewer_protocol_policy = var.cf_viewer_protocol_policy
   cf_default_root_object = var.cf_default_root_object
   cf_query_string = var.cf_query_string
+}
+
+module "sg_module_for_lb" {
+  source = "./modules/sg"
+  vpc_id = module.vpc_module.vpc_id
+  sg_allowed_ports = var.sg_allowed_ports_for_lb
+  sg_allowed_ip_ranges = var.sg_allowed_ip_ranges_for_lb
+  sg_name = "lb_sg"
+}
+
+module "sg_module_for_lt" {
+  source = "./modules/sg"
+  vpc_id = module.vpc_module.vpc_id
+  sg_allowed_ports = var.sg_allowed_ports_for_lt
+  sg_allowed_ip_ranges = var.sg_allowed_ip_ranges_for_lt
+  sg_name = "lt_sg"
+}
+
+module "sg_module_for_ec2" {
+  source = "./modules/sg"
+  vpc_id = module.vpc_module.vpc_id
+  sg_allowed_ports = var.sg_allowed_ports_for_ec2
+  sg_allowed_ip_ranges = var.sg_allowed_ip_ranges_for_ec2
+  sg_name = "ec2_sg"
+}
+
+module "sg_module_for_lambda" {
+  source = "./modules/sg"
+  vpc_id = module.vpc_module.vpc_id
+  sg_allowed_ports = var.allowed_ports_for_lambda
+  sg_allowed_ip_ranges = var.allowed_ip_ranges_for_lambda
+  sg_name = "lambda_sg"
 }

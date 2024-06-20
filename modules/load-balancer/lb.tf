@@ -2,7 +2,7 @@ resource "aws_lb" "main" {
   name               = var.lb_name
   internal           = var.lb_internal
   load_balancer_type = var.lb_type
-  security_groups    = [aws_security_group.main.id]
+  security_groups    = var.sg_ids
   subnets            = var.lb_subnet_ids
 
   enable_deletion_protection = var.lb_enable_deletion_protection

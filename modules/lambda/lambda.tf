@@ -8,6 +8,6 @@ resource "aws_lambda_function" "main_lambda" {
 
   vpc_config {
     subnet_ids = var.lambda_subnet_ids
-    security_group_ids = [aws_security_group.main.id]
+    security_group_ids = var.sg_ids
   }
 }

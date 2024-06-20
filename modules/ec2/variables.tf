@@ -17,15 +17,6 @@ variable "subnet_id" {
 variable "vpc_id" {
   type        = string
 }
-
-variable "sg_allowed_ports" {
-  type        = list(number)
-}
-
-variable "sg_allowed_ip_ranges" {
-  type        = list(string)
-}
-
 variable "ec2_key_name" {
   type        = string
 }
@@ -36,4 +27,8 @@ variable "ec2_user_data" {
 
 variable "ec2_count" {
   type = number
+}
+
+variable "sg_ids" {
+  type = list(string)
 }
