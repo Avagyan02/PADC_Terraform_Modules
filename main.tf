@@ -84,6 +84,7 @@ module "s3_module" {
   static_website_error_key = var.static_website_error_key
   static_website_index_source = var.static_website_index_source
   files_to_upload = var.files_to_upload
+  cf_origin_access_identity = module.cloudfront_module.cf_origin_access_identity
 }
 
 module "cloudfront_module" {

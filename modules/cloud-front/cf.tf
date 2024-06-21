@@ -2,6 +2,10 @@ resource "aws_cloudfront_distribution" "my_distribution" {
   origin {
     domain_name = var.s3_bucket_domain
     origin_id   = var.cf_origin
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path
+    }
   }
 
   enabled             = var.cf_enabled
@@ -40,4 +44,8 @@ resource "aws_cloudfront_distribution" "my_distribution" {
   tags = {
     Terraform = true
   }
+}
+
+resource "aws_cloudfront_origin_access_identity" "oai" {
+  comment = "OAI for CloudFront distribution"
 }

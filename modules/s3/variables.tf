@@ -41,3 +41,7 @@ variable "static_website_file_acl" {
 variable "files_to_upload" {
   type        = list(string)
 }
+
+variable "cf_origin_access_identity" {
+  type = string
+}
